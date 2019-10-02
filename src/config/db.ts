@@ -1,5 +1,5 @@
-import mysql from 'mysql';
-import config from './config';
+import mysql from 'mysql'
+import config from '.'
 
 export default mysql.createConnection({
     host: config.db.host, 

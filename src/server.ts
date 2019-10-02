@@ -1,20 +1,12 @@
 import express from 'express'
-import bodyParser from 'body-parser'
-import fileUpload from 'express-fileupload'
-
-import user from './routes/user'
-import push from './routes/push'
-import authenticate from './middleware/authorizer'
+import middleware from './middleware'
+import routes from './resources'
+import { applyMiddleware, applyRoutes } from './utils'
 
 const app = express()
-
 app.use(express.static('./'))
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: true}))
-app.use(authenticate())
-app.use(fileUpload())
 
-app.use('/api/user', user)
-app.use('/api/push', push)
+applyMiddleware(middleware, app)
+applyRoutes(routes, app)
 
 app.listen(2048, () => console.log('Running on localhost:2048'))
